@@ -1,28 +1,43 @@
 package com.DK.MarketPlace.controllers;
 
 
+import com.DK.MarketPlace.models.Purchase;
+import com.DK.MarketPlace.persistences.PurchaseRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @Controller
 public class BaseController {
 
-    @GetMapping("/greeting")
-    public String hello(@RequestParam(defaultValue = "World") String name,
-                        Map<String, Object> model) {
-        model.put("name", name);
+    private PurchaseRepo repo;
 
-        return "greeting";
+    @Autowired
+    public BaseController(PurchaseRepo purchaseRepo) {
+        this.repo = purchaseRepo;
+    }
+
+    @GetMapping("/createPurchase")
+    public String getCreatePage() {
+        return "createBuy";
+    }
+
+    @PostMapping("/createPurchase")
+    public String addPurchase(@RequestParam String name, @RequestParam Double cost,
+                              @RequestParam(required = false) LocalDateTime date) {
+        repo.save(new Purchase(name, cost, date));
+        return "startPage";
     }
 
     @GetMapping
     public String mainPage(Map<String, Object> model) {
-        model.put("message", "Today i start project");
+        model.put("listPurchases", repo.findAll());
 
-        return "startpage";
+        return "startPage";
     }
 }

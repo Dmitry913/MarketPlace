@@ -1,0 +1,18 @@
+<html>
+
+<body>
+
+    <form method="post">
+        <input type="text" name="text" placeholder="Добавьте покупку" />
+        <button type="submit">Добавить</button>
+    </form>
+
+    <div>Список покупок</div>
+    {{#listPurchases}}
+        <h6>{{name}}</h6>
+        <p>{{cost}}$</p>
+        <h5>until {{shelfLife}}</h5>
+        <span>{{description}}</span>
+    {{/listPurchases}}
+</body>
+</html>
