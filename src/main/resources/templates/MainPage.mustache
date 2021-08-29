@@ -1,0 +1,13 @@
+<html>
+<head>
+    <title>Main Page</title>
+</head>
+<body>
+    <div>Hello, user</div>
+    <a href="/login">Sing In</a>
+    <form action="/logout" method="post">
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+        <input type="submit" value="Sign Out"/>
+    </form>
+</body>
+</html>

@@ -31,13 +31,18 @@ public class BaseController {
     public String addPurchase(@RequestParam String name, @RequestParam Double cost,
                               @RequestParam(required = false) LocalDateTime date) {
         repo.save(new Purchase(name, cost, date));
-        return "startPage";
+        return "purchases";
     }
 
     @GetMapping
-    public String mainPage(Map<String, Object> model) {
+    public String getMainPage() {
+        return "MainPage";
+    }
+
+    @GetMapping("/makePurchase")
+    public String makePurchase(Map<String, Object> model) {
         model.put("listPurchases", repo.findAll());
 
-        return "startPage";
+        return "purchases";
     }
 }
