@@ -1,6 +1,5 @@
 package com.DK.MarketPlace.controllers;
 
-
 import com.DK.MarketPlace.models.Purchase;
 import com.DK.MarketPlace.persistences.PurchaseRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +12,11 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 @Controller
-public class BaseController {
-
+public class PurchaseController {
     private PurchaseRepo repo;
 
     @Autowired
-    public BaseController(PurchaseRepo purchaseRepo) {
+    public PurchaseController(PurchaseRepo purchaseRepo) {
         this.repo = purchaseRepo;
     }
 
@@ -32,11 +30,6 @@ public class BaseController {
                               @RequestParam(required = false) LocalDateTime date) {
         repo.save(new Purchase(name, cost, date));
         return "purchases";
-    }
-
-    @GetMapping
-    public String getMainPage() {
-        return "MainPage";
     }
 
     @GetMapping("/makePurchase")
